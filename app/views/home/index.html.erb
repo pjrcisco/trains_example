@@ -1,0 +1,166 @@
+<div class = 'banner'>
+  <img src="<%=image_url 'cisco_logo.png'%>"/>
+</div>
+
+
+<div class="custom-container h-550" id="c-div">
+  <div class="box" style="height: 85%;">
+    <h3>Register For VSOM Alerts</h3>
+  
+
+    <div class="form-container">
+      <form action="/register_phone" method="POST" id="contact-form">
+        <input id="formPhoneId" placeholder="Enter Your Phone Number (required)" type="text" name="phone" required>
+        <span class='error_id' id='formPhoneIdError'></span><br>
+        <input id="formEmailId" placeholder="Enter Your Spark Email(required)" type="text" name="email" required>
+        <span class='error_id' id='formEmailIdError'></span><br>
+        <textarea id="formMessageId" rows="5" name="message" placeholder="Enter Your Message (required)" required></textarea>
+        <span class='error_id' id='formMessageIdError'></span><br>
+        <input type="button" value="Register" id="submitForm">
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class='loading-bkg display-none' id = 'loadingBackground'>
+  <div style='top: 25%;' class='loader'></div>
+  <div class='loader-msg' id ='loadingMsg'>
+        Registering your phone number...
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+var loadingBackground = document.getElementById("loadingBackground");
+var loadingMsg = document.getElementById("loadingMsg");
+
+var formPhoneError = document.getElementById("formPhoneIdError");
+var formMessageError = document.getElementById("formMessageIdError");
+var formEmailError = document.getElementById("formEmailIdError");
+
+var contactForm = document.getElementById("contact-form");
+var contactSubmit = document.getElementById("submitForm");
+
+  addEvent = function(object, type, callback) {
+    if (object === null || typeof(object) === 'undefined') return;
+    if (object.addEventListener) {
+        object.addEventListener(type, callback, false);
+    } else if (object.attachEvent) {
+        object.attachEvent("on" + type, callback);
+    } else {
+        object["on"+type] = callback;
+    }
+  };
+
+
+  function sendForm(form, url, callback){
+    console.log("--->")
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: $(form).serialize(), // serializes the form's elements.
+      success: function(data){
+        callback(data)
+      }
+    });
+  }
+
+  // this is the callback for sendForm at the moment
+  // 
+  function finishedLoadingMsg(){
+    loadingMsg.innerHTML = "Your phone has been registered";
+  }
+
+  function failureLoadingMsg(){
+    loadingMsg.innerHTML = "There has been an error, please try again";
+  }
+  function removeLoadingScreen(){
+    loadingBackground.className = "loading-bkg display-none";
+    loadingMsg.innerHTML = "Registering your phone number...";
+    formPhoneError.innerHTML = "";
+    formMessageError.innerHTML = "";
+    formEmailError.innerHTML = "";
+    clearFormFields(contactForm);
+  }
+  function clearForm(data){
+    //var obj = JSON.parse(data);
+    var obj = data
+    if(obj.status == 200){
+      setTimeout(finishedLoadingMsg, 1000);
+      setTimeout(removeLoadingScreen, 2500);
+    }
+    else{
+      setTimeout(failureLoadingMsg, 1000);
+      setTimeout(removeLoadingScreen, 2500);
+    }
+  }
+
+  addEvent(contactSubmit, "click", function(){
+    var data = parseForm(contactForm);
+    if(data.success){
+    loadingBackground.className = "loading-bkg";
+      formPhoneError.innerHTML = "";
+      formMessageError.innerHTML = "";
+      formEmailError.innerHTML = "";
+      sendForm(contactForm, "/register_phone.json", clearForm);
+    }
+    else{
+      var error = "Error";
+      for(key in data.data){
+        var id = [data.data[key], error].join("");
+        var element = document.getElementById(id);
+        element.innerHTML = "*";
+      }
+    }
+  });
+
+  var clearFormFields = function(form){
+    var elements = form.elements;
+    for (var i = 0, element; element = elements[i++];) {
+      if (element.type === "button")
+        ;
+      else{
+        element.value = "";
+      }
+    }
+  }
+
+  var parseForm = function(form){
+    var elements = form.elements;
+    var data = {};
+    var errors = {};
+    for (var i = 0, element; element = elements[i++];) {
+      if (element.type === "button")
+        ;
+      else if ((element.value === "" || element.value === null) && element.required === true)
+        errors[i] = element.id;
+      else{
+        var key = element.name;
+        data[key] = element.value;
+      }
+    }
+
+    if (!isEmpty(errors)) {
+      return {success: false, data: errors };
+    }
+    return {success: true, data: data };
+  }
+
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  function isEmpty(obj) {
+    if (obj == null) return true;
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+    for (var key in obj) {
+      if (hasOwnProperty.call(obj, key)) return false;
+    }
+    return true;
+  }
+
+</script>

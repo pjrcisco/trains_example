@@ -1,0 +1,317 @@
+{
+  "status": {
+    "errorType": "SUCCESS"
+  },
+  "data": {
+    "deviceTemplate": {
+      "systemDefined": false,
+      "shared": true,
+      "generic": true,
+      "numAssocDevices": 1,
+      "vendor": "generic",
+      "model": "generic",
+      "ownerLocationRef": {
+        "refUid": "40000000-0000-0000-0000-000000000005",
+        "refName": "System",
+        "refObjectType": "location",
+        "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+      },
+      "videoStreams": [
+        {
+          "streamNum": 1,
+          "viewable": true,
+          "motionConfigured": true,
+          "recordable": true,
+          "videoStreamProfile": {
+            "videoQuality": "low",
+            "format": "NTSC",
+            "ltsRetentionDays": 0,
+            "suspendableProxy": false,
+            "uid": "a103c573-464c-4673-9362-777f87602289"
+          },
+          "uid": "7115f371-6f0b-44bf-a69d-8330c93dc752"
+        }
+      ],
+      "recordings": [
+        {
+          "recordingType": "LOOP",
+          "streamNum": 1,
+          "duration": 86400,
+          "expireTime": 1,
+          "eventExpireTime": 30,
+          "storageEstimation": true,
+          "startImmediate": true,
+          "jpegFrameRate": 0.0,
+          "recordIframe": false,
+          "archiveToLTS": false,
+          "ltsRetentionTime": 0,
+          "zeroVideoLossEnabled": false,
+          "uid": "db4260db-d271-45b7-aa75-884e672e75a6"
+        }
+      ],
+      "policyParameter": {
+        "policyType": "BASIC",
+        "policys": [
+          {
+            "triggerConfig": {
+              "triggerType": "NO_RECORDING",
+              "streamNum": 1,
+              "uid": "9c3211d7-67f4-4ac5-9d3f-502a8f29b644"
+            },
+            "policyType": "BASIC",
+            "name": "24x7 Recording-0-0",
+            "description": "",
+            "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+            "objectType": "vs_policy",
+            "uid": "eb514e6f-f2a3-41fd-a2fa-8527a9067828"
+          },
+          {
+            "triggerConfig": {
+              "triggerType": "MOTION_RECORDING",
+              "type": "motion_start",
+              "streamNum": 0,
+              "uid": "10cad95d-8aa9-4d0d-aef1-15cdea1e934d"
+            },
+            "actionLists": [
+              {
+                "actions": [
+                  {
+                    "actionType": "URL_NOTIFY",
+                    "properties": [
+                      {
+                        "pName": "url",
+                        "pValue": "http://riel.io",
+                        "uid": "0e38ad22-c7ad-4448-86f4-a9db05996fe6"
+                      },
+                      {
+                        "pName": "url_method",
+                        "pValue": "POST",
+                        "uid": "4b7da624-c1fd-472c-b9cf-765695a63b02"
+                      },
+                      {
+                        "pName": "url_post_data",
+                        "pValue": "{\n\"camera\": {\n\"id\": \"test\",\n\"val\": \"test\"\n}\n}",
+                        "uid": "e9fb1e74-6ef8-4b25-9593-56e6a6f69dbd"
+                      }
+                    ],
+                    "uid": "cf57a445-0239-4408-a569-361f92ace5fa"
+                  }
+                ],
+                "uid": "ec35d4d7-eefb-48a0-8b42-7eebe9d29d3d"
+              }
+            ],
+            "policyType": "BASIC",
+            "name": "policy_MOTION_STARTED_URL_NOTIFY",
+            "description": "",
+            "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+            "objectType": "vs_policy",
+            "uid": "974dc8f0-4d31-46d4-9469-479f0346429b"
+          }
+        ],
+        "uid": "a01f0358-db68-4f4b-baee-12774fc849d5"
+      },
+      "participateInFailover": false,
+      "preBuffer": 30,
+      "postBuffer": 60,
+      "lastModified": 1459747798387,
+      "enableRecordNow": false,
+      "mergeRecordings": false,
+      "name": "Train Post",
+      "description": "Post to URI when there has been motion detected",
+      "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+      "objectType": "vs_deviceTemplate",
+      "uid": "fec53133-2c1b-4ccb-9137-700640bb6f0c"
+    },
+    "deviceTemplateRef": {
+      "refUid": "fec53133-2c1b-4ccb-9137-700640bb6f0c",
+      "refName": "Train Post",
+      "refObjectType": "vs_deviceTemplate",
+      "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+    },
+    "pointToLocationRef": {
+      "refUid": "40000000-0000-0000-0000-000000000005",
+      "refName": "System",
+      "refObjectType": "location",
+      "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+    },
+    "motionConfigs": [
+      {
+        "configNumber": 1,
+        "globalSettings": {
+          "persistenceMs": 0,
+          "stopTriggerTimeMs": 0,
+          "uid": "c9fdc10e-e505-444a-9581-8bb99ad91e65"
+        },
+        "motionWindows": [
+          {
+            "windowId": 0,
+            "windowName": "Window_0",
+            "eventSrc": "fec53133-2c1b-4ccb-9137-700640bb6f0c:9b06bb10-88b2-4a10-ba50-e70ffca3a2c6:576d8caa-1025-4c1f-b216-9b791014ee36",
+            "mask": false,
+            "windowSettings": {
+              "detectionThreshold": 10,
+              "sensitivity": 75,
+              "uid": "4d6981dd-b75d-40aa-bac6-6b360ff050b4"
+            },
+            "upperLeftX": 0,
+            "upperLeftY": 0,
+            "lowerRightX": 1056,
+            "lowerRightY": 1056,
+            "uid": "576d8caa-1025-4c1f-b216-9b791014ee36"
+          }
+        ],
+        "uid": "a843ffe7-9edc-4807-8bbb-411652701427"
+      }
+    ],
+    "videoStreams": [
+      {
+        "streamNum": 1,
+        "isUnicastMirrored": false,
+        "multicastPort": 0,
+        "name": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6_vs1",
+        "description": "",
+        "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+        "objectType": "vs_video_stream",
+        "uid": "69d3eadc-399d-4232-8baf-a995701f5b69"
+      }
+    ],
+    "recordings": [
+      {
+        "state": "STOPPED",
+        "streamNum": 1,
+        "name": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6_as1_r",
+        "description": "",
+        "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+        "objectType": "vs_recording",
+        "uid": "9fa9b17a-879f-4408-89ff-e9b189cbdfaa"
+      },
+      {
+        "state": "STOPPED",
+        "streamNum": 1,
+        "name": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6_vs1_r",
+        "description": "",
+        "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+        "objectType": "vs_recording",
+        "uid": "c48ea64a-d5fb-421b-a031-d44424a703db"
+      }
+    ],
+    "videoController": {
+      "deviceRef": {
+        "refUid": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6",
+        "refName": "IPC-7070-02",
+        "refObjectType": "device_vs_camera_ip",
+        "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+      },
+      "deviceAlternateId": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6",
+      "portId": "1",
+      "portType": "video_port",
+      "deviceModel": "cisco_7070",
+      "uid": "c61c3d67-97ad-4e53-94ae-366d84ebe7d6"
+    },
+    "audioInController": {
+      "deviceRef": {
+        "refUid": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6",
+        "refName": "IPC-7070-02",
+        "refObjectType": "device_vs_camera_ip",
+        "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+      },
+      "deviceAlternateId": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6",
+      "portId": "1",
+      "portType": "audio_in_port",
+      "deviceModel": "cisco_7070",
+      "uid": "d9d87324-c6ca-4f7c-a32d-3f5622d3ecf9"
+    },
+    "contactClosureInPorts": [
+      {
+        "name": "Contact closure 1",
+        "portId": "1",
+        "uid": "b574cd8a-f9f1-4ea9-a279-6d3917affbff"
+      }
+    ],
+    "managedByRef": {
+      "refUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+      "refName": "VsomServer",
+      "refObjectType": "device_vs_server",
+      "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+    },
+    "sdkVersion": "V1.6.3",
+    "ntpConfig": {
+      "ntpConfigMode": "automatic",
+      "servers": [
+        "-MEDIA_SERVER_IP_"
+      ],
+      "timeZone": "America/Los_Angeles",
+      "timeZoneWithOffset": "America/Los_Angeles(GMT -8:00)",
+      "localTime": 0,
+      "uid": "6aa3919a-2b37-41e1-9113-1ccd3b989e66"
+    },
+    "mergeRecordings": false,
+    "eventSuppressionModeEnabled": false,
+    "eventSuppressionModeEndTimestamp": 0,
+    "fishEyeConfiguration": {
+      "orientation": "CEIL",
+      "dewarpMode": "VIEW_360",
+      "panSpeed": 0,
+      "uid": "c01e4e8b-5257-4800-a5c6-032368007333"
+    },
+    "minTamperDuration": 10,
+    "clearTamperStateDurationInMins": 60,
+    "vendor": "Cisco Systems, Inc.",
+    "model": "cisco_7070",
+    "modelName": "Cisco HD IP Camera 7070 Series",
+    "firmwareVersion": "2.7.0-20",
+    "modelNameFromDevice": "CIVS-IPC-7070",
+    "vendorNameFromDevice": "Cisco Systems, Inc.",
+    "hardwareId": "VTW19252673;cisco_7070",
+    "serialNo": "VTW19252673",
+    "approved": true,
+    "adminState": "enabled",
+    "deviceState": {
+      "aggregateState": "ok",
+      "uid": "66310ef0-9d75-44bd-a63c-404538390146"
+    },
+    "locationRef": {
+      "refUid": "40000000-0000-0000-0000-000000000005",
+      "refName": "System",
+      "refObjectType": "location",
+      "refVsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff"
+    },
+    "deviceAccess": {
+      "username": "admin",
+      "hostname_ip": "10.10.69.70",
+      "uid": "4a5da69f-5dfb-479b-87ab-5e64fdda8973"
+    },
+    "networkConfig": {
+      "gateway": "10.10.69.254",
+      "networkInterfaces": [
+        {
+          "dhcp": false,
+          "version": "IPV4",
+          "ipAddress": "10.10.69.70",
+          "subnetMask": "255.255.255.0",
+          "macAddress": "74:26:AC:FE:77:F8",
+          "linkUp": false,
+          "portId": "74:26:AC:FE:77:F8",
+          "uid": "0436d7dd-372f-4d90-84d4-98ccbd908d57"
+        }
+      ],
+      "dnsServers": [
+
+      ],
+      "searchDomains": [
+
+      ],
+      "uid": "49bca224-4a45-4452-b94f-19736d92a686"
+    },
+    "lastModified": 1459747951200,
+    "createdTime": 1455695489654,
+    "alternateId": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6",
+    "name": "IPC-7070-02",
+    "tags": "",
+    "description": "",
+    "vsomUid": "dbc3b4ac-491a-4f35-bb9e-7598c13fbfff",
+    "objectType": "device_vs_camera_ip",
+    "uid": "9b06bb10-88b2-4a10-ba50-e70ffca3a2c6"
+  }
+}
+
