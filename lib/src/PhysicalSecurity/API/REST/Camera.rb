@@ -30,6 +30,14 @@ module API
     "/camera/getPendingCameras"
   end 
 
+  def self.get_camera_event_urls_uri
+    "/camera/getCameraEventURLs"
+  end
+
+  def self.get_cdp_neighbors_uri
+    "/camera/getCdpNeighbors"
+  end
+
   module REST
   module Camera
 
@@ -158,7 +166,15 @@ module API
       Utility.create_vsom(token, API.get_streaming_details_uri, payload)
     end
 
+    def self.get_camera_event_urls(token, device_reference)
+      payload = {"deviceRef": device_reference}
+      Utility.create_vsom(token, API.get_camera_event_urls_uri, payload)
+    end
 
+    def self.get_cdp_neighbors(token, camera_reference)
+      payload = {"cameraRef": camera_reference}
+      Utility.create_vsom(token, API.get_cdp_neighbors_uri, payload)
+    end
 
 
   end

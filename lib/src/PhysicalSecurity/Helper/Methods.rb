@@ -28,8 +28,33 @@ module Helper
       entry   = entries[0]
       s_token = API::REST::Camera.get_security_token(token, entry["cameraRef"])
       result  = API::REST::CameraRecordings.get_uri_for_current_thumbnail(token, entry["cameraRef"], entry["uid"])
-      Utility.swap_ip(result["data"]["getUri"], "171.68.22.181")#Utility.ip)
-      
+      Utility.swap_ip(result["data"]["getUri"], "171.68.22.181")#Utility.ip)      
+    end
+
+    def self.get_camera_events_urls_by_name(token, name)
+      reference  = get_camera_by_name(token, name)
+      device_ref = {
+        "refUid": reference["alternateId"],
+        "refName": reference["name"],
+        "refObjectType": reference["objectType"],
+        "refVsomUid": reference["vsomUid"]
+      }
+      result    = API::REST::Camera.get_camera_event_urls(token, device_ref)
+      json result
+      result
+    end
+
+    def self.get_camera_cdp_neighbors_by_name(token, name)
+      reference  = get_camera_by_name(token, name)
+      device_ref = {
+        "refUid": reference["alternateId"],
+        "refName": reference["name"],
+        "refObjectType": reference["objectType"],
+        "refVsomUid": reference["vsomUid"]
+      }
+      result    = API::REST::Camera.get_cdp_neighbors(token, device_ref)
+      json result
+      result
     end
 
     def self.json(value)

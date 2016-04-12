@@ -9,6 +9,19 @@ class CameraEventController < ApplicationController
     end
   end
 
+  def handle_get
+    respond_to do |format|
+
+    format.html{
+      render :json =>{status: 200}
+    }
+
+    format.json{
+      render :json => {status: 200}
+    }
+    end
+  end
+
   protected
 
   def validate_params
