@@ -1,11 +1,24 @@
 class CameraEventController < ApplicationController
-  before_action :validate_params
+  before_action :validate_params, only: [:handle]
 
   def handle
     respond_to do |format|
       format.json {
         handle_camera_event
       }
+    end
+  end
+
+  def handle_get
+    respond_to do |format|
+
+    format.html{
+      render :json =>{status: 200}
+    }
+
+    format.json{
+      render :json => {status: 200}
+    }
     end
   end
 
