@@ -1,5 +1,5 @@
 class CameraEventController < ApplicationController
-  before_action :validate_params
+  before_action :validate_params, only: [:handle]
 
   def handle
     respond_to do |format|
