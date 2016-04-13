@@ -9,8 +9,12 @@ module Helper
 
   module Methods
     def self.get_camera_by_name(token, name)
-      filter = { "byExactName": name }
+      #filter = { "byExactName": name }
+      filter = {"byExactName": "IPC-7070-02" }
+      puts name
       camera = API::REST::Camera.get_cameras_filtered(token, filter)
+      puts JSON.pretty_generate(filter)
+      puts JSON.pretty_generate(camera)
       if camera.nil? || camera["data"].nil? || camera["data"]["items"].nil?
         return nil
       else
@@ -22,6 +26,14 @@ module Helper
       filter  = {"byCameraAlternateId": camera["alternateId"] }
       entries = API::REST::CameraRecordings.get_camera_recording_catalog_entries(token, filter) 
       entries["data"]["items"]
+    end
+
+    def self.get_recordings_by_camera_name(token, name)
+      camera_ref = _get_camera_ref_by_name(token, name)
+      filter  = {"byCameraRef": camera_ref }
+      entries = API::REST::CameraRecordings.get_camera_recording_catalog_entries(token, filter)
+      entries 
+      #entries["data"]["items"]
     end
 
     def self.get_current_snapshot_url(token, entries)
@@ -56,6 +68,45 @@ module Helper
       json result
       result
     end
+
+
+    def self.start_recording(token, name)
+      camera_ref = _get_camera_ref_by_name(token, name)
+      result     = API::REST::CameraRecordings.start_on_demand(token, camera_ref)
+  
+    end
+
+    def self.stop_recording(token, name)
+      camera_ref = _get_camera_ref_by_name(token, name)
+      result     = API::REST::CameraRecordings.stop_on_demand(token, camera_ref)
+    end
+  
+    def self.get_first_last_recording_by_camera_name(token, name)
+      recordings = get_recordings_by_camera_name(token, name)
+      #rec_id     = recordings["data"]["items"][0]["recordingAlternateId"]
+      rec_id     = recordings["data"]["items"][0]["uid"]
+      camera_ref = _get_camera_ref_by_name(token, name)
+      API::REST::CameraRecordings.get_first_last_recording_catalog_entry(token, camera_ref, rec_id)
+    end
+
+    def self.get_uri_for_current_thumbnail_by_camera_name(token, name)
+      recording  =  get_first_last_recording_by_camera_name(token, name)
+      camera_ref = _get_camera_ref_by_name(token, name)
+      id         = recording["data"]["uid"]
+      API::REST::CameraRecordings.get_uri_for_current_thumbnail(token, camera_ref, id)
+    end
+
+    def self._get_camera_ref_by_name(token, name)
+      reference  = get_camera_by_name(token, name)
+      device_ref = {
+        "refUid": reference["alternateId"],
+        "refName": reference["name"],
+        "refObjectType": reference["objectType"],
+        "refVsomUid": reference["vsomUid"]
+      }
+    end
+
+
 
     def self.json(value)
       puts JSON.pretty_generate(value)

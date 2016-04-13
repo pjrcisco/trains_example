@@ -8,25 +8,33 @@ module PhysicalSecurity
   def self.get_current_snapshot_url(name)
     token  = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
     camera = Helper::Methods.get_camera_by_name(token, name)
-
     if camera.nil?
       return Utility::Response.new({ "status": "camera not found" })
     end
-
     recordings = Helper::Methods.get_recordings_by_camera(token, camera)
-    
     if recordings.nil?
       return Utility::Response.new({ "status": "no camera recordings found" })
     end
-
     url = Helper::Methods.get_current_snapshot_url(token, recordings)
     if url.nil?
       return Utility::Response.new({ "status": "unable to get snapshot url" })
     else
       return Utility::Response.new({ "status": 200, "url": url })
-    end  
-  
+    end
   end
 
+  def self.start_recording(name)
+
+    token  = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
+    res = PhysicalSecurity::Helper::Methods.start_recording(token, name)
+    return Utility::Response.new({ "data": res })
+  end
+
+  def self.stop_recording(name)
+
+    token  = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
+    res = PhysicalSecurity::Helper::Methods.stop_recording(token, name)
+    return Utility::Response.new({ "data": res })
+  end
 
 end
