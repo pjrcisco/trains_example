@@ -20,10 +20,30 @@ class CameraEvent < ActiveRecord::Base
   end
 
 
+def self.record(camera_params)
+  if valid_token?(camera_params[:token])
+    response  = PhysicalSecurity.start_recording(camera_params[:name])
+    Utility::Response.new({ "result": response })
+    #response = PhysicalSecurity.get_current_snapshot_url(camera_params[:name])
+    #if response.status == 200
+      #Utility::Response.new({"status": res})
+  else
+    Utility::Response.new({ "status": "invalid token" })
+  end
+#PhysicalSecurity.get_current_snapshot_url(camera_params[:name])
+end
+
+  def self.snapshot(camera_params)
+  end
+
+  def self.stop(camera_params)
+  end
+
+
   private
 
   def self.valid_token?(token)
-    if token.to_s == ENV["CAMERA_1_TOKEN"]
+    if token.to_s == "12345"
       true
     else
       false

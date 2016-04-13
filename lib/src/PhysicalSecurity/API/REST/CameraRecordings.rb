@@ -75,12 +75,12 @@ module API
         body: { "cameraRef": camera_reference }
       })
       vsom.post!
-      if vsom.results["status"]["errorType"] == "SUCCESS"
-        return vsom.results["data"]
-      else
-        puts "ERROR START ON DEMAND"
-        return nil
-      end
+      vsom.results
+      #if vsom.results["status"]["errorType"] == "SUCCESS"
+      #  return vsom.results["data"]
+      #else
+      #  puts "ERROR START ON DEMAND"
+      #  return nil
     end
 
     def self.stop_on_demand(token, camera_reference)
@@ -90,12 +90,7 @@ module API
         body: { "cameraRef": camera_reference }
       })
       vsom.post!
-      if vsom.results["status"]["errorType"] == "SUCCESS"
-        return vsom.results["data"]
-      else
-        puts "ERROR STOP ON DEMAND"
-        return nil
-      end
+      vsom.results
     end
 
     def self.get_server_recording_details(token, camera_reference)
@@ -113,7 +108,7 @@ module API
 
     def self.get_camera_recording_catalog_entries(token, filter)
       payload = {"filter": filter}
-      Utility.create_vsom(token, API.get_camera_recording_catalog_entries_uri, payload)
+      res  = Utility.create_vsom(token, API.get_camera_recording_catalog_entries_uri, payload)
     end
 
     def self.get_first_last_recording_catalog_entry(token, camera_reference, recording_catalog_entry_id)

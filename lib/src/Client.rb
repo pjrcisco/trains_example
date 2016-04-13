@@ -21,6 +21,9 @@ class Client < APIBase
       end 
     end
 
+
+    # generators that will return the results of an http request
+    # post, get currently implemented
     def self.post_it(uri, headers, body)
       client = new_client(uri, headers, body) 
       client.post!
@@ -33,6 +36,7 @@ class Client < APIBase
       client.results
     end
 
+    # encodes params into a url (for get requests)
     def self.encode_url_params(base_url, args={})
       uri = base_url + "?"
       args.each do |k, v|
