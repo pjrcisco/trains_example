@@ -24,16 +24,20 @@ module PhysicalSecurity
   end
 
   def self.start_recording(name)
-
-    token  = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
-    res = PhysicalSecurity::Helper::Methods.start_recording(token, name)
+    token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
+    res   = PhysicalSecurity::Helper::Methods.start_recording(token, name)
     return Utility::Response.new({ "data": res })
   end
 
   def self.stop_recording(name)
+    token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
+    res   = PhysicalSecurity::Helper::Methods.stop_recording(token, name)
+    return Utility::Response.new({ "data": res })
+  end
 
-    token  = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
-    res = PhysicalSecurity::Helper::Methods.stop_recording(token, name)
+  def self.get_snapshot(name, file_name, start_time)
+    token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
+    res   = PhysicalSecurity::Helper::Methods.get_snapshot(token, name, file_name, start_time)
     return Utility::Response.new({ "data": res })
   end
 

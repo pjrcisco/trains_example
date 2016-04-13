@@ -9,13 +9,9 @@ module Helper
 
   module Methods
     def self.get_camera_by_name(token, name)
-      #filter = { "byExactName": name }
-      filter = {"byExactName": "IPC-7070-02" }
-      puts name
+      filter = {"byExactName": name }
       camera = API::REST::Camera.get_cameras_filtered(token, filter)
-      puts JSON.pretty_generate(filter)
-      puts JSON.pretty_generate(camera)
-      if camera.nil? || camera["data"].nil? || camera["data"]["items"].nil?
+      if camera.nil? || camera["data"].nil? || camera["data"]["items"].nil? || camera["data"]["items"][0].nil?
         return nil
       else
         camera["data"]["items"][0]
@@ -45,28 +41,32 @@ module Helper
 
     def self.get_camera_events_urls_by_name(token, name)
       reference  = get_camera_by_name(token, name)
-      device_ref = {
-        "refUid": reference["alternateId"],
-        "refName": reference["name"],
-        "refObjectType": reference["objectType"],
-        "refVsomUid": reference["vsomUid"]
-      }
-      result    = API::REST::Camera.get_camera_event_urls(token, device_ref)
-      json result
-      result
+      unless reference.nil?
+        device_ref = {
+          "refUid": reference["alternateId"],
+          "refName": reference["name"],
+          "refObjectType": reference["objectType"],
+          "refVsomUid": reference["vsomUid"]
+        }
+        result    = API::REST::Camera.get_camera_event_urls(token, device_ref)
+        json result
+        result
+      end
     end
 
     def self.get_camera_cdp_neighbors_by_name(token, name)
       reference  = get_camera_by_name(token, name)
-      device_ref = {
-        "refUid": reference["alternateId"],
-        "refName": reference["name"],
-        "refObjectType": reference["objectType"],
-        "refVsomUid": reference["vsomUid"]
-      }
-      result    = API::REST::Camera.get_cdp_neighbors(token, device_ref)
-      json result
-      result
+      unless reference.nil?
+        device_ref = {
+          "refUid": reference["alternateId"],
+          "refName": reference["name"],
+          "refObjectType": reference["objectType"],
+          "refVsomUid": reference["vsomUid"]
+        }
+        result    = API::REST::Camera.get_cdp_neighbors(token, device_ref)
+        json result
+        result
+      end
     end
 
 
@@ -96,14 +96,27 @@ module Helper
       API::REST::CameraRecordings.get_uri_for_current_thumbnail(token, camera_ref, id)
     end
 
+    def self.get_snapshot(token, camera_name, file_name, start_time)
+      c_ref = _get_camera_ref_by_name(token, camera_name)
+      unless c_ref.nil?
+        rec = get_first_last_recording_by_camera_name(token, name)
+        id  = rec["data"]["uid"]
+        API::REST::CameraRecordings.get_thumbnails(token, file_name, c_ref, id, start_time, start_time+1000)
+      end
+    end
+
+
+
     def self._get_camera_ref_by_name(token, name)
       reference  = get_camera_by_name(token, name)
-      device_ref = {
-        "refUid": reference["alternateId"],
-        "refName": reference["name"],
-        "refObjectType": reference["objectType"],
-        "refVsomUid": reference["vsomUid"]
-      }
+      unless reference.nil?
+        device_ref = {
+          "refUid": reference["alternateId"],
+          "refName": reference["name"],
+          "refObjectType": reference["objectType"],
+          "refVsomUid": reference["vsomUid"]
+        }
+      end
     end
 
 

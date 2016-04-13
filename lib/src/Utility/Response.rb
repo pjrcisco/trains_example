@@ -18,5 +18,11 @@ module Utility
       @data[:url] || @data["url"]
     end
 
+
+
+    def self.invalid_token
+      Utility::Response.new({ "status": "invalid token" })
+    end
+
   end
 end
