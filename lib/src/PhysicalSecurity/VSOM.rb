@@ -21,13 +21,13 @@ class VSOM < APIBase
       end 
     end
   
-    def post_to_file(image_name)
+    def post_to_file(file)
       Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https') do | http |
         @request =  Net::HTTP::Post.new(@uri)
         add_headers
         @request.body = @body.to_json
         @response = http.request @request
-        File.open("Resources/media/images/#{image_name}", 'w') { |file| file.write(@response.body) }
+        File.open(file, 'w') { |file| file.write(@response.body) }
         @results = {
           "status": @response.code
         }
