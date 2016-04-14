@@ -33,7 +33,12 @@ class CameraEvent < ActiveRecord::Base
     if valid_token?(camera_params[:token])
       current_time = Time.now 
       file_name    = File.join(Rails.root, 'app/tmp/images/','jpg','#{current_time}.jpg')
-      response = PhysicalSecurity.get_snapshot(camera_params[:name], file_name, current_time)
+      response     = PhysicalSecurity.get_snapshot(camera_params[:name], file_name, current_time)
+      #if response.okay?
+        # ENV["current_ip"] + "/" + "images/tmp/#{current_time}"
+        # res = Spark.send_image("priel@cisco.com", "Motion has been detected on #{camera_params[:name]}", response.url)
+      #else
+      #end
       Utility::Response.new({ "result": response })
     else
       Utility::Response.invalid_token

@@ -6,7 +6,14 @@ class Client < APIBase
       Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https') do | http |
         @request =  Net::HTTP::Post.new(@uri)
         add_headers
+        @request.each_header do |k, v|
+          puts "header #{k} #{v}"
+        end
+        puts "===="
+        puts "===="
+        puts "===="
         @request.body = @body.to_json
+        puts @body
         @response = http.request @request 
         @results = @response.body
       end
