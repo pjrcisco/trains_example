@@ -10,5 +10,9 @@ Rails.application.routes.draw do
 
 
   get 'api/v1/camera_event' => 'camera_event#handle_get'
+  
+  get 'images/tmp/:id'      => 'images#get'
+
+
 
 end

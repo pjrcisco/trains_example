@@ -28,11 +28,14 @@ module Listener
           body = {
             "camera":{
               "name": "6400E-01",
-              "id": 2,
-              "token": 2
+              "id": 12345,
+              "token": 12345
             } 
-          } 
-        IOT::API::REST::MQTTSensors::Event.send("http://10.10.30.19" + @action , nil, body)
+          }
+          headers = {
+          "content-type": "application/json"
+          }
+        puts IOT::API::REST::MQTTSensors::Event.send("http://10.10.30.19" + @action , headers, body)
         #Thread.new{
         #  uri = "http://10.10.30.19" + @action 
         #  puts uri
@@ -46,7 +49,7 @@ module Listener
         #  puts IOT::API::REST::MQTTSensors::Event.send(uri, nil, body)
           sleep(5)
           @ready = true
-        }
+        #}
       end
     end
 
@@ -57,11 +60,12 @@ module Listener
       trig1    = IOT::Listener::Sensor.new("dist-2", '/api/v1/camera/record')
       trig2    = IOT::Listener::Sensor.new("dist-1", '/api/v1/camera/snapshot')
       trig3    = IOT::Listener::Sensor.new("light",  '/api/v1/camera/stop')
-      client = MQTT::Client.connect(:host => '173.36.206.30', :port => 7777)
+      trig2.execute
+      client   = MQTT::Client.connect(:host => '173.36.206.30', :port => 7777)
       client.get('devnet/2') do |topic,message|
           content = JSON.parse(message)
+          puts JSON.pretty_generate(content)
           if content["trig"] = "dist-2"
-          puts "--->"
           #if content["trig"] != "none"
             case content["trig"]
               when trig1.name
@@ -75,8 +79,6 @@ module Listener
       end
     end
   end
-
-
 end
 end
-IOT::Listener::MQTTSensors.listen
+#IOT::Listener::MQTTSensors.listen
