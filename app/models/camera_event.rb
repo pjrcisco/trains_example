@@ -63,7 +63,7 @@ class CameraEvent < ActiveRecord::Base
 
   def self.stop(camera_params)
     if valid_token?(camera_params[:token])
-      Tropo.session("+19257755171", "Hello Patrick, The train has stopped")
+      Tropo.tropo_session("+19257755171", "Hello Patrick, The train has stopped")
     else
       Utility::Response.invalid_token
     end
