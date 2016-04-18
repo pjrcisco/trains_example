@@ -14,8 +14,29 @@ module Utility
       @data[:status] || @data["status"]
     end
   
+
+    def errors?
+      if @data[:error] || @data["error"]
+        return true
+      else
+        return false
+      end       
+    end
+
+    def errors
+      @data[:error] || @data["error"]
+    end
+
+
     def url
       @data[:url] || @data["url"]
+    end
+
+    
+    def self.error(args)
+      Utility::Response.new({
+        "error": args
+      })
     end
 
 

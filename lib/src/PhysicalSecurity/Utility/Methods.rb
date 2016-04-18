@@ -3,7 +3,8 @@ require_relative '../VSOM'
 module Utility
     
     def self.ip
-     "10.10.20.69"
+      "171.68.22.61"  # this is the IP accessible when using San Jose SSL/Blizzard
+     #{}"10.10.20.69"
      #{}"171.68.22.181"
     end
 
