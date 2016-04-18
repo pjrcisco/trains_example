@@ -23,7 +23,7 @@ module Helper
     def self.send_message(token, text, files, room_id, to_person_id, to_person_email)
       params = {}
       params["text"]          = text            if text.nil?            == false
-      params["text"]          = files           if files.nil?           == false
+      params["files"]         = files           if files.nil?           == false
       params["roomId"]        = room_id         if room_id.nil?         == false
       params["toPersonId"]    = to_person_id    if to_person_id.nil?    == false
       params["toPersonEmail"] = to_person_email if to_person_email.nil? == false

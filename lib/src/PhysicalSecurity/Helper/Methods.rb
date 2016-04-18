@@ -73,7 +73,6 @@ module Helper
     def self.start_recording(token, name)
       camera_ref = _get_camera_ref_by_name(token, name)
       result     = API::REST::CameraRecordings.start_on_demand(token, camera_ref)
-  
     end
 
     def self.stop_recording(token, name)

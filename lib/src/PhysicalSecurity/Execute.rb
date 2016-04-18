@@ -26,19 +26,28 @@ module PhysicalSecurity
   def self.start_recording(name)
     token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
     res   = PhysicalSecurity::Helper::Methods.start_recording(token, name)
-    return Utility::Response.new({ "data": res })
+    unless res.nil? || res["status"].nil? || res["status"]["errorType"] != "SUCCESS"
+      return Utility::Response.new({ "data": res["data"] })
+    end
+    return Utility::Response.error(res)
   end
 
   def self.stop_recording(name)
     token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
     res   = PhysicalSecurity::Helper::Methods.stop_recording(token, name)
-    return Utility::Response.new({ "data": res })
+    unless res.nil? || res["status"].nil? || res["status"]["errorType"] != "SUCCESS"
+      return Utility::Response.new({ "data": res["data"] })
+    end
+    return Utility::Response.error(res)
   end
 
   def self.get_snapshot(name, file_name, start_time)
     token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
     res   = PhysicalSecurity::Helper::Methods.get_snapshot(token, name, file_name, start_time)
-    return Utility::Response.new({ "data": res })
+    unless res.nil? || res["status"].nil? || res["status"]["errorType"] != "SUCCESS"
+      return Utility::Response.new({ "data": res["data"] })
+    end
+    return Utility::Response.error(res)
   end
 
 end
