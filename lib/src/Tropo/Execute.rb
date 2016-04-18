@@ -30,6 +30,9 @@ module Tropo
       message: message,
     })
     res = Client.post_it(Tropo::Routes.sessions, headers, session.body)
+    Utility::Response.new({
+      "result": res
+    })
   end
 
 end

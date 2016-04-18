@@ -82,6 +82,7 @@ module Helper
   
     def self.get_first_last_recording_by_camera_name(token, name)
       recordings = get_recordings_by_camera_name(token, name)
+      json recordings
       #rec_id     = recordings["data"]["items"][0]["recordingAlternateId"]
       rec_id     = recordings["data"]["items"][0]["uid"]
       camera_ref = _get_camera_ref_by_name(token, name)
@@ -104,6 +105,9 @@ module Helper
       end
     end
 
+    def self.get_streaming_url(token, id)
+      API::REST::Camera.get_streaming_details_url(token, id)
+    end
 
 
     def self._get_camera_ref_by_name(token, name)

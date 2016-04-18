@@ -43,7 +43,7 @@ module Listener
     def self.default_camera
       body = {
         "camera":{
-          "name": "CIVS-IPC-6400E-01",
+          "name": "CIVS-IPC-2830-01",
           "id": 12345,
           "token": 12345
         } 
@@ -51,7 +51,8 @@ module Listener
     end
     
     def self.default_host
-      "173.36.206.19"
+      #{}"173.36.206.19"
+      "10.10.130.34"
     end
 
     def self.listen
