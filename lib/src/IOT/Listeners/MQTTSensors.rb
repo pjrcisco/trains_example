@@ -52,7 +52,8 @@ module Listener
     
     def self.default_host
       #{}"173.36.206.19"
-      "10.10.130.34"
+      #{}"10.10.130.34"
+      "localhost:3000"
     end
 
     def self.listen
@@ -81,13 +82,18 @@ module Listener
             case content["trig"]
               when trig1.name
                 #puts trig1.name
-                trig1.execute
+              #  trig1.execute
               when trig2.name
               #  puts trig2.name
-                trig2.execute
+             #   trig2.execute
               when trig3.name
                 #puts trig3.name
-                trig3.execute
+               # trig1.execute
+                #sleep(10)
+                trig2.execute
+               # sleep(225)
+              #  trig3.execute
+                #trig3.execute
             end
           end
       end

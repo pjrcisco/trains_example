@@ -149,7 +149,7 @@ module API
           "thumbnailQuality":"medium",
           "tokenExpiryInSecs": 300
         }
-      }
+      }      
       Utility.create_vsom_to_file(token, file_name, API.get_thumbnails_uri, payload)
     end
 

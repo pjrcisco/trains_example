@@ -27,7 +27,7 @@ class VSOM < APIBase
         add_headers
         @request.body = @body.to_json
         @response = http.request @request
-        File.open(file, 'w') { |file| file.write(@response.body) }
+        File.open(file, 'wb') { |file| file.write(@response.body) }
         @results = {
           "status": @response.code
         }

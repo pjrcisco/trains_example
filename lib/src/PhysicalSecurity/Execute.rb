@@ -44,7 +44,7 @@ module PhysicalSecurity
   def self.get_snapshot(name, file_name, start_time)
     token = API::REST::Authentication.login("admin", ENV["VSOM_PASSWORD"])
     res   = PhysicalSecurity::Helper::Methods.get_snapshot(token, name, file_name, start_time)
-    unless res.nil? || res["status"].nil? || res["status"]["errorType"] != "SUCCESS"
+    unless res.nil? || res[:status].nil? || res[:status].to_s != "200"
       return Utility::Response.new({ "data": res["data"] })
     end
     return Utility::Response.error(res)

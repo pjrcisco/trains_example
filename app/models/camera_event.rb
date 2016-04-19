@@ -35,13 +35,13 @@ class CameraEvent < ActiveRecord::Base
 
   def self.snapshot(camera_params)
     if valid_token?(camera_params[:token])
-      current_time = Time.now 
-      file_name    = File.join(Rails.root, 'app/tmp/images/','jpg','#{current_time}.jpg')
+      current_time = Time.now.to_i 
+      file_name    = File.join(Rails.root, 'app/tmp/images/', "#{current_time}.jpg")
       res          = PhysicalSecurity.get_snapshot(camera_params[:name], file_name, current_time)
       if res.errors?
         return res
       else
-        Spark.send_image("priel@cisco.com", "Motion #{camera_params[:name]}", res.url)
+        Spark.send_image("priel@cisco.com", "Motion #{camera_params[:name]}", ENV["SPARK_IMAGE_URL"]+"/#{current_time}.jpg")
       end
     else
       Utility::Response.invalid_token

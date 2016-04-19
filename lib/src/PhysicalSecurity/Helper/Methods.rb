@@ -82,7 +82,10 @@ module Helper
   
     def self.get_first_last_recording_by_camera_name(token, name)
       recordings = get_recordings_by_camera_name(token, name)
-      json recordings
+      puts name
+      
+      #puts recordings
+      #json recordings
       #rec_id     = recordings["data"]["items"][0]["recordingAlternateId"]
       rec_id     = recordings["data"]["items"][0]["uid"]
       camera_ref = _get_camera_ref_by_name(token, name)
@@ -99,7 +102,7 @@ module Helper
     def self.get_snapshot(token, camera_name, file_name, start_time)
       c_ref = _get_camera_ref_by_name(token, camera_name)
       unless c_ref.nil?
-        rec = get_first_last_recording_by_camera_name(token, name)
+        rec = get_first_last_recording_by_camera_name(token, camera_name)
         id  = rec["data"]["uid"]
         API::REST::CameraRecordings.get_thumbnails(token, file_name, c_ref, id, start_time, start_time+1000)
       end

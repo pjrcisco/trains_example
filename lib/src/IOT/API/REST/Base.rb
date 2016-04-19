@@ -2,7 +2,8 @@ module IOT
 module API
 
   def self.ip
-    "http://10.10.130.19"
+    #{}"http://10.10.130.19"
+    "http://localhost:3000"
     #{}"http://173.36.206.19"
   end
 
