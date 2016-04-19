@@ -1,6 +1,8 @@
+require 'src/Utility/Response'
+require 'json'
+
 require_relative '../API/REST/People'
 require_relative '../API/REST/Messages'
-require 'json'
 
 module Spark
 module Helper
@@ -14,10 +16,14 @@ module Helper
       }
       results = []
       res = API::REST::People.list(ENV["SPARK_TOKEN"], params)
-      res["items"].each do |person|
-        results << person
+      unless res["items"].nil? || res["items"].empty?
+        res["items"].each do |person|
+          results << person
+        end
+        results[0]["id"]
+      else    
+        nil
       end
-      results[0]["id"]
     end
 
     def self.send_message(token, text, files, room_id, to_person_id, to_person_email)

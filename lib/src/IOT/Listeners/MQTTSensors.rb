@@ -88,9 +88,11 @@ module Listener
              #   trig2.execute
               when trig3.name
                 #puts trig3.name
+                trig3.execute
+                sleep(44)
                # trig1.execute
                 #sleep(10)
-                trig2.execute
+                #trig2.execute
                # sleep(225)
               #  trig3.execute
                 #trig3.execute

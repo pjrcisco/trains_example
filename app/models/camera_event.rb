@@ -48,22 +48,18 @@ class CameraEvent < ActiveRecord::Base
     end
   end
 
-#Utility::Response.new({ "result": res })
-#      end
-      #if response.okay?
-        # ENV["current_ip"] + "/" + "images/tmp/#{current_time}"
-        # res = Spark.send_image("priel@cisco.com", "Motion has been detected on #{camera_params[:name]}", response.url)
-      #else
-      #end
-      #Utility::Response.new({ "result": response })
-   # else
-   #   Utility::Response.invalid_token
-   # end
- # end
-
   def self.stop(camera_params)
     if valid_token?(camera_params[:token])
-      Tropo.tropo_session("+19257755171", "Hello Patrick, The train has stopped")
+      res = PhysicalSecurity.stop_recording(camera_params[:name])
+      if res.errors?
+        Tropo.tropo_session("+19257755171", "Hello Patrick, The here has been an issue")
+        return Utility::Response.errors(res)
+      else
+        Tropo.tropo_session("+19257755171", "Hello Patrick, The train has stopped and there is no problem")
+        Utility::Response.new({
+          "status": 200
+        })
+      end
     else
       Utility::Response.invalid_token
     end
